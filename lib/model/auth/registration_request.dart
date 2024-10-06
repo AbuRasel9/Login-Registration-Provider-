@@ -17,6 +17,15 @@ class RegistrationRequest {
     this.password,
   });
 
+  RegistrationRequest copyWith({
+    String? email,
+    String? password,
+  }) =>
+      RegistrationRequest(
+        email: email ?? this.email,
+        password: password ?? this.password,
+      );
+
   factory RegistrationRequest.fromJson(Map<String, dynamic> json) => RegistrationRequest(
     email: json["email"],
     password: json["password"],

@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:untitled6/model/auth/login_request.dart';
 import 'package:untitled6/provider/auth/auth_provider.dart';
 import 'package:untitled6/view/auth/registration.dart';
-import 'package:untitled6/view/home_screen.dart';
+import 'package:untitled6/view/home/home_screen.dart';
+
+import '../../repo/sharePrefs/share_prefs.dart';
+import '../../utils/service/di_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,8 +19,11 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController(text: "eve.holt@reqres.in");
   final _passwordController = TextEditingController(text: "cityslicka");
 
+  final diSharePrefs=di<SharePrefs>();
+
+
   ///loging
-  Future<void> Login() async {
+  Future<void> login() async {
     final provider = context.read<AuthProvider>();
     provider.setLoading(loading: true);
     final result = await provider.login(LoginRequest(
@@ -31,7 +37,7 @@ class _LoginState extends State<Login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => const HomeScreen(),
         ),
       );
     } else {
@@ -44,6 +50,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AuthProvider>(context);
+    print("---------------------------tt${diSharePrefs.token}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login"),
@@ -51,6 +58,7 @@ class _LoginState extends State<Login> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               controller: _emailController,
@@ -72,7 +80,7 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Login();
+                  login();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent,
@@ -92,13 +100,13 @@ class _LoginState extends State<Login> {
                       ),
               ),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Align(
               alignment: Alignment.topRight,
               child: TextButton(onPressed: (){
 
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Registration(),),);
-              },child: Text("Don't Have Account SingUp"),),
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const Registration(),),);
+              },child: const Text("Don't Have Account SingUp"),),
             )
           ],
         ),

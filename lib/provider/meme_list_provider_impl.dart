@@ -1,9 +1,12 @@
 part of'meme_list_provider.dart';
 
 class MemeListProviderImpl extends MemeListProvider{
+  NetworkRequester memesDi=di<NetworkRequester>();
+
   @override
   Future<void> getMemeData() async {
-    MemesModel result=await NetworkRequester().getAllMeme();
+    MemesModel result=await memesDi.getAllMeme();
+    // MemesModel result=await NetworkRequester().getAllMeme();
     _memeList=result.data?.memes ?? [];
     notifyListeners();
 

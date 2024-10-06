@@ -1,5 +1,9 @@
+
+
+
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:untitled6/model/auth/login_request.dart';
 import 'package:untitled6/model/auth/registration_request.dart';
@@ -9,6 +13,7 @@ import 'package:http/http.dart';
 
 import '../model/auth/login_response.dart';
 
+@LazySingleton()
 class NetworkRequester {
   Future<MemesModel> getAllMeme() async {
     Response response = await get(
@@ -75,4 +80,9 @@ class NetworkRequester {
 
     }
   }
+
+
+
+  //dio api call
+
 }

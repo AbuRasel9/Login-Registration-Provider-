@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled6/provider/auth/auth_provider.dart';
 import 'package:untitled6/provider/meme_list_provider.dart';
+import 'package:untitled6/view/auth/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,8 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getData();
-
-
     });
     super.initState();
   }
@@ -31,11 +31,33 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final memeProvider = Provider.of<MemeListProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: CupertinoColors.systemGrey6,
-      appBar: AppBar(
-        title: const Text("Home Screen"),
-      ),
+      appBar: AppBar(title: const Text("Home Screen"), actions: [
+        IconButton(
+          onPressed: () {
+            authProvider.logout().then((value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Log out Successfull",
+                  ),
+                ),
+              );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Login(),
+                ),
+              );
+            });
+          },
+          icon: const Icon(
+            Icons.logout,
+          ),
+        ),
+      ]),
       body: Padding(
           padding: const EdgeInsets.all(15),
           child: memeProvider.isLoading
@@ -46,10 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: memeProvider.memeList?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8,),
-                      margin: EdgeInsets.only(bottom: 10),
-
-                      decoration:  const BoxDecoration(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                      ),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
@@ -77,7 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                             children: [
                               Text(
                                 memeProvider.memeList?[index].id ?? "",
@@ -85,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w400, fontSize: 13),
                               ),
                               Text(
-                                memeProvider.memeList?[index].captions.toString() ?? "",
+                                memeProvider.memeList?[index].captions
+                                        .toString() ??
+                                    "",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400, fontSize: 13),
                               ),

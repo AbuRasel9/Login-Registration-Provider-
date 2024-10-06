@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled6/provider/auth/auth_provider.dart';
 import 'package:untitled6/provider/meme_list_provider.dart';
+import 'package:untitled6/utils/service/di_service.dart';
 import 'package:untitled6/view/auth/login.dart';
+import 'package:untitled6/view/splash_screen.dart';
 
-import 'view/home_screen.dart';
+import 'view/home/home_screen.dart';
 
 void main(){
-  runApp(MyApp());
+  setUpDi();
+  runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,7 +25,8 @@ class MyApp extends StatelessWidget {
 
     ],
       child: const MaterialApp(
-        home: Login(),
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
 
     );

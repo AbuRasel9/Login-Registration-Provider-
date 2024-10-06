@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:untitled6/network_requester/network_requester.dart';
+import 'package:untitled6/utils/service/di_service.dart';
 
 import '../model/meme_model.dart';
+import '../repo/network_requester.dart';
 
 part 'meme_list_provider_impl.dart';
 

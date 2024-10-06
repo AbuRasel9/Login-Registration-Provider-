@@ -4,7 +4,7 @@ import 'package:untitled6/model/auth/login_request.dart';
 import 'package:untitled6/model/auth/registration_request.dart';
 import 'package:untitled6/provider/auth/auth_provider.dart';
 import 'package:untitled6/view/auth/login.dart';
-import 'package:untitled6/view/home_screen.dart';
+import 'package:untitled6/view/home/home_screen.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
