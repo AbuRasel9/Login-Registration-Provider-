@@ -10,7 +10,7 @@ import 'package:untitled6/view/splash_screen.dart';
 import 'view/home/home_screen.dart';
 
 void main(){
-  setUpDi();
+  diSetup();
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

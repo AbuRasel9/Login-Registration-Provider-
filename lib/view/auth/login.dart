@@ -50,7 +50,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AuthProvider>(context);
-    print("---------------------------tt${diSharePrefs.token}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login"),
